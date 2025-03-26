@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include "../lib/graphe.h"
 #include "../lib/inout.h"
 #include "../lib/connexe.h"
+#include <time.h>
 
 int main(int argc, char* argv[]){
-
+    srand(time(NULL));
     /*
     graphe G1 = hypercube(3);
 
@@ -25,18 +27,32 @@ int main(int argc, char* argv[]){
     freeGraphe(G1_comp);
 
     */
-    graphe g_aleat, g_aleat2, G2 = lireGraphe("../data/maison.txt");
+    
+    graphe g_aleat = aleatoire(9, 1.7), G2 = lireGraphe("../data/maison.txt");
     creerDotGraphe(G2, "maison");
+    dessinerGraphe(G2, "maison");
 
-
-    int nb_comp = connexe(G2);
-    printf("Le graphe maison a %d composantes connexes\n", nb_comp);
-
-    g_aleat=aleatoire(9, 1.7);
+    int * maximum= malloc(sizeof(int));
+    int * sommets_giant = malloc(g_aleat.nbs * sizeof(int));
+    int nb_comp = giant(g_aleat, maximum, &sommets_giant);
+    //(G2, maximum, sommets_comp);
+    //printf("Le graphe maison a %d composantes connexes\nSa composante géante est de %d sommets\n", nb_comp, *maximum);
+/*  printf("[");
+    for (int it=0; it<G2.nbs-1; it++)
+        printf("%d, ", sommets_comp[it]);
+    printf("%d]", sommets_comp[G2.nbs-1]);
+*/
+    
     dessinerGraphe(g_aleat, "graphe_aleatoire");
+    printf("Le graphe aleatoire a %d composantes connexes\nSa composante géante est de %d sommets\n", nb_comp, *maximum);
+    printf("[");
+    for (int it=0; it<g_aleat.nbs-1; it++)
+        printf("%d, ", sommets_giant[it]);
+    printf("%d]", sommets_giant[g_aleat.nbs-1]);
 
-    g_aleat2=aleatoire(9, 1.7);
-    dessinerGraphe(g_aleat2, "graphe_aleatoire2");
+    freeGraphe(G2);
+    freeGraphe(g_aleat);
+    free(maximum);
 
     return 0;
 }

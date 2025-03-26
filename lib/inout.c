@@ -103,10 +103,11 @@ void creerDotGraphe(graphe G, char * radical){
 		}
 		fprintf(fichier, "}");
 		fclose(fichier);
+		free(nom_fichier);
 	}
 }
 
-void dessiner(graphe g, char* radical){
+void dessinerGraphe(graphe g, char* radical){
 	creerDotGraphe(g, radical);
 
 	char cmd[128];
