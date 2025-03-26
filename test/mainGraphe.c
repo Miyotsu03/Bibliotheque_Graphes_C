@@ -34,7 +34,9 @@ int main(int argc, char* argv[]){
 
     int * maximum= malloc(sizeof(int));
     int * sommets_giant = malloc(g_aleat.nbs * sizeof(int));
-    int nb_comp = giant(g_aleat, maximum, &sommets_giant);
+    int *visit = NULL;
+
+    int nb_comp = giant(g_aleat, maximum, &visit);
     //(G2, maximum, sommets_comp);
     //printf("Le graphe maison a %d composantes connexes\nSa composante géante est de %d sommets\n", nb_comp, *maximum);
 /*  printf("[");
@@ -47,12 +49,13 @@ int main(int argc, char* argv[]){
     printf("Le graphe aleatoire a %d composantes connexes\nSa composante géante est de %d sommets\n", nb_comp, *maximum);
     printf("[");
     for (int it=0; it<g_aleat.nbs-1; it++)
-        printf("%d, ", sommets_giant[it]);
-    printf("%d]", sommets_giant[g_aleat.nbs-1]);
+        printf("%d, ", visit[it]);
+    printf("%d]\n", visit[g_aleat.nbs-1]);
 
     freeGraphe(G2);
     freeGraphe(g_aleat);
     free(maximum);
+    free(visit);
 
     return 0;
 }
