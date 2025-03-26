@@ -49,7 +49,7 @@ void PPRG(int sommet, graphe g, int **v, int *taille){
 int giant(graphe g, int *max, int ** visit){
     int res = 0;
     int taille;
-    *max = 0;
+    *max = 0; 
 
     //Initialisation de la liste de visite de sommets
     *visit = realloc(*visit, g.nbs * sizeof(int));
