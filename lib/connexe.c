@@ -64,6 +64,6 @@ int giant(graphe g, int *max, int ** visit){
             if (taille > *max) *max = taille;
         }
     }
-    return res;
+    return res; 
 }
 
