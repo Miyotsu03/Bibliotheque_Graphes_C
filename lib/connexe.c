@@ -37,33 +37,33 @@ int connexe(graphe g, int *max){
     return res;
 }
 
-void PPRG(int sommet, graphe g, int **v, int *taille){
-    (*v)[sommet] = *taille;
+void PPRG(int sommet, graphe g, int sommets[], int *taille, int p){
+    sommets[sommet] = p;
     (*taille)++;
 
     for (int j=0; j<g.nbs; j++)
-        if ((*v)[j] == 0 && g.mat[sommet][j])
-            PPRG(j, g, v, taille);  
+        if (sommets[j] == 0 && g.mat[sommet][j])
+            PPRG(j, g, sommets, taille, p);  
 }
 
-int giant(graphe g, int *max, int ** visit){
+int * giant(graphe g, int *max, int *num){
     int res = 0;
     int taille;
-    *max = 0; 
+    *max = 0;
 
     //Initialisation de la liste de visite de sommets
-    *visit = realloc(*visit, g.nbs * sizeof(int));
-    memset(*visit, 1, g.nbs * sizeof(int));
-
+    int *sommets = calloc(g.nbs, sizeof(int));
     
-    for (int s=0; s<g.nbs; s++){
-        if ((*visit)[s] == 0){
-            taille = 1;
-            PPRG(s, g, visit, &taille);
-            res += 1;
-            if (taille > *max) *max = taille;
+    for (int s=0; s<g.nbs; s++)
+        if (sommets[s] == 0){
+            taille = 0;
+            res++;
+            PPRG(s, g, sommets, &taille, res);
+            if (taille > *max) {
+                *max = taille;
+                *num = res;
+            }
         }
-    }
-    return res; 
+    return sommets;
 }
 

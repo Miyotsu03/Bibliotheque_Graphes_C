@@ -4,6 +4,6 @@
 
 //Retourne le nb de composantes connexes
 int connexe(graphe g, int* max);
-int giant(graphe g, int *max, int **sommets);
+int* giant(graphe g, int *max, int * num);
 
 #endif
