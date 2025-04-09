@@ -57,8 +57,11 @@ int main(int argc, char* argv[]){
 
     //freeGraphe(G2);
     freeGraphe(g_aleat);
+    freeGraphe(G2);
     free(maximum);
+    free(num_giant);
     free(sommets_giant);
+    
 
     return 0;
 }

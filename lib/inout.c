@@ -92,7 +92,7 @@ void creerDotGraphe(graphe G, char * radical){
 		
 		fprintf(fichier, "graph {\n");
 		for (int i=0; i<G.nbs; i++)
-			fprintf(fichier,"\t%d;\n",i);
+			fprintf(fichier,"\t%d [color=lightgreen];\n",i);
 			
 		
 		for (int i=0; i<G.nbs; i++)
@@ -111,6 +111,6 @@ void dessinerGraphe(graphe g, char* radical){
 	creerDotGraphe(g, radical);
 
 	char cmd[128];
-	sprintf(cmd,"dot -Tpng %s.dot -o %s.png", radical, radical);
+	sprintf(cmd,"fdp -Tpng %s.dot -o %s.png", radical, radical);
 	system(cmd);
 }

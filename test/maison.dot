@@ -1,9 +1,9 @@
 graph {
-	0;
-	1;
-	2;
-	3;
-	4;
+	0 [color=lightgreen];
+	1 [color=lightgreen];
+	2 [color=lightgreen];
+	3 [color=lightgreen];
+	4 [color=lightgreen];
 	0 -- 1;
 	0 -- 2;
 	1 -- 2;

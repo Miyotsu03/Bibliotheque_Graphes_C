@@ -1,18 +1,14 @@
 graph {
-	0;
-	1;
-	2;
-	3;
-	4;
-	5;
-	6;
-	7;
-	8;
-	0 -- 1;
-	0 -- 5;
-	0 -- 8;
-	2 -- 3;
-	2 -- 4;
-	3 -- 8;
-	5 -- 6;
+	0 [color=lightgreen];
+	1 [color=lightgreen];
+	2 [color=lightgreen];
+	3 [color=lightgreen];
+	4 [color=lightgreen];
+	5 [color=lightgreen];
+	6 [color=lightgreen];
+	7 [color=lightgreen];
+	8 [color=lightgreen];
+	0 -- 7;
+	2 -- 8;
+	5 -- 8;
 }

@@ -68,7 +68,7 @@ int test(int n, float p){
 
 
 /*Genere un graphe aleatoire :
-	chaque arete a une probabilite p/n d'esxister*/
+	chaque arete a une probabilite p/n d'exister*/
 graphe aleatoire(int n, float p){
 	graphe res = initGraphe(n);
 
