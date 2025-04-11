@@ -1,5 +1,5 @@
 OPTIONS= -Wall -g
-OBJET= graphe.o inout.o connexe.o
+OBJET= graphe.o inout.o connexe.o disjoint.o
 
 libgraphe.a : $(OBJET)
 	ar crs libgraphe.a $(OBJET) 
@@ -11,6 +11,9 @@ inout.o : inout.c inout.h graphe.h
 	gcc $(OPTIONS) -c $<
 
 connexe.o : connexe.c connexe.h graphe.h
+	gcc $(OPTIONS) -c $<
+
+disjoint.o : disjoint.c disjoint.h graphe.h inout.h
 	gcc $(OPTIONS) -c $<
 	
 #Ouvrir depuis le bash avec
