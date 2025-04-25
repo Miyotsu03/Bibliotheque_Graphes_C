@@ -46,6 +46,8 @@ void PPRG(int sommet, graphe g, int sommets[], int *taille, int p){
             PPRG(j, g, sommets, taille, p);  
 }
 
+/*
+Retourne une liste d'int : l [ i ] = numero de la composante à laquelle le sommet i apprtient*/
 int * giant(graphe g, int *max, int *num){
     int res = 0;
     int taille;

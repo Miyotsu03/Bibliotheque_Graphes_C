@@ -1,7 +1,7 @@
 #ifndef DISJOINT_H
 #define DISJOINT_H
 #include "graphe.h"
-# include "inout.h"
+#include "inout.h"
 
 
 typedef struct disjoint //ensemble disjoint
@@ -21,5 +21,7 @@ disjoint singleton(int);
 disjoint representant(disjoint r);
 
 void reunion(disjoint p,disjoint q);
+
+int ar_aleat_connexe(int n);
 
 #endif

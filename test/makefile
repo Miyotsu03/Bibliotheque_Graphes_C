@@ -26,6 +26,7 @@ mainDisjoint.exe : mainDisjoint.o
 #Compiler le fichier objet mainDisjoint.o
 mainDisjoint.o : mainDisjoint.c
 	$(CC) $(OPTIONS) -c $< -o $@
+
 #Construire la librairie statique
 $(LIB):
 	make -C ../lib
@@ -35,10 +36,14 @@ clean:
 	rm -f $(OBJS) $(EXECUTABLES)
 	rm -f *.dot
 	rm -f *.png
+	rm -f *.o
 
 #Run l'executable
-run: $(EXECUTABLES)
-	./$(EXECUTABLES)
+runGraphe: mainGraphe.exe
+	./$<
+
+runDisjoint: mainDisjoint.exe
+	./$<
 
 #cibles PHONY
-.PHONY: all clean run
+.PHONY: all clean runGraphe runDisjoint
