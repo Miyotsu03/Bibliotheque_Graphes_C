@@ -23,5 +23,6 @@ disjoint representant(disjoint r);
 void reunion(disjoint p,disjoint q);
 
 int ar_aleat_connexe(int n);
+void dessinerPlot(int nMax, char* radical);
 
 #endif
