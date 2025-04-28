@@ -9,6 +9,10 @@ typedef struct disjoint //ensemble disjoint
 	struct disjoint* rep; //representant
 }enrdisjoint, *disjoint;
 
+typedef struct arc{
+	int x, y; float w;
+}arc;
+
 disjoint * init_disjoint(int n);
 void free_disjoint(disjoint * ed, int taille);
 
@@ -24,5 +28,9 @@ void reunion(disjoint p,disjoint q);
 
 int ar_aleat_connexe(int n);
 void dessinerPlot(int nMax, char* radical);
+
+arc *recup_arc(graphe g);
+arc* Kruskal(graphe g, int *result_size);
+
 
 #endif

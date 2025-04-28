@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+//var globale pour la fonction recup_aretes : taille du tableau de retour
+int cpt;
 
 /*
 Génère un ensemble disjoint de taille n
@@ -151,4 +153,83 @@ void dessinerPlot(int nMax, char* radical){
 	char cmd[128];
 	sprintf(cmd,"gnuplot %s.gp", radical);
     system(cmd);
+}
+
+/*
+Retourne -1 si p1 < p2, 0 ou plus sinon
+*/
+static int cmp_arc(const void *p1, const void *p2){
+	arc *arc1 = (arc *)p1;
+    arc *arc2 = (arc *)p2;
+    if (arc1->w < arc2->w) return -1;
+    if (arc1->w > arc2->w) return 1;
+    return 0;
+}
+
+/*retourne un tableau des arêtes de G*/
+arc *recup_arc(graphe g){
+    int taille_tab = 10; // Taille initiale
+    cpt = 0;
+    arc *tab_aretes = malloc(taille_tab * sizeof(arc)); // Utilisez malloc pour une taille initiale
+
+    if (tab_aretes == NULL) {
+        fprintf(stderr, "Erreur d'allocation de mémoire.\n");
+        return NULL; // Gestion de l'erreur
+    }
+
+    for (int i = 0; i < g.nbs; i++) {
+        for (int j = i + 1; j < g.nbs; j++) {
+            if (g.mat[i][j]) {
+                if (cpt >= taille_tab) { // Vérifiez si vous devez redimensionner
+                    taille_tab += 2; // Doublez la taille
+                    arc *new_tab = realloc(tab_aretes, taille_tab * sizeof(arc));
+                    if (new_tab == NULL) {
+                        free(tab_aretes); // Libérez l'ancienne mémoire
+                        fprintf(stderr, "Erreur de réallocation de mémoire.\n");
+                        return NULL; // Gestion de l'erreur
+                    }
+                    tab_aretes = new_tab; // Mettez à jour le pointeur
+                }
+                arc tmp;
+                tmp.x = i;
+                tmp.y = j;
+                tmp.w = g.mat[i][j];
+                tab_aretes[cpt++] = tmp;
+            }
+        }
+    }
+    // Redimensionner le tableau à la taille exacte
+    arc *final_tab = realloc(tab_aretes, cpt * sizeof(arc));
+    if (final_tab != NULL) {
+        tab_aretes = final_tab; // Mettez à jour le pointeur si la réallocation a réussi
+    }
+
+    return tab_aretes; // Retournez le tableau d'arêtes
+}
+
+arc* Kruskal(graphe g, int *result_size) {
+    // Initialisation des ensembles disjoints
+    disjoint *ed = init_disjoint(g.nbs);
+    arc *res = malloc((g.nbs - 1) * sizeof(arc)); // Pour stocker l'arbre couvrant
+    int e = 0; // Compteur pour les arêtes de l'arbre couvrant
+
+    //Création du tableau d'arêtes et Màj de cpt (taille )
+    arc *arcs = recup_arc(g);
+    // Tri des arêtes par poids
+    qsort(arcs, cpt, sizeof(arc), cmp_arc);
+
+    for (int i = 0; i < cpt; i++) {
+        arc current_arc = arcs[i];
+        disjoint rep_x = representant(ed[current_arc.x]);
+        disjoint rep_y = representant(ed[current_arc.y]);
+
+        // Si les représentants sont différents, on ajoute l'arête à l'arbre couvrant
+        if (rep_x != rep_y) {
+            res[e++] = current_arc; // Ajouter l'arête à l'arbre couvrant
+            reunion(rep_x, rep_y); // Union des deux ensembles
+        }
+    }
+    *result_size = e; // Taille de l'arbre couvrant
+    free_disjoint(ed, g.nbs); // Libération de la mémoire
+    return res; // Retourne l'arbre couvrant
 }

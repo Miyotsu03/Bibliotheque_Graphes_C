@@ -3,11 +3,11 @@ CC = gcc
 OPTIONS = -Wall -g -I$(GRAPHE)/lib -L$(GRAPHE)/lib
 
 # CIBLES
-EXECUTABLES = mainGraphe.exe mainDisjoint.exe
+EXECUTABLES = mainGraphe.exe mainDisjoint.exe mainKruskal.exe
 LIB = libgraphe.a
 
 #OBJETS
-OBJS = mainGraphe.o mainDisjoint.o
+OBJS = mainGraphe.o mainDisjoint.o mainKruskal.o
 
 #CIBLE par defaut
 all: $(LIB) $(EXECUTABLES)
@@ -25,6 +25,13 @@ mainDisjoint.exe : mainDisjoint.o
 
 #Compiler le fichier objet mainDisjoint.o
 mainDisjoint.o : mainDisjoint.c
+	$(CC) $(OPTIONS) -c $< -o $@
+
+#Compiler le fichier mainKruskal.exe
+mainKruskal.exe : mainKruskal.o
+	$(CC) $(OPTIONS) $^ -o $@ -lgraphe -lm
+
+mainKruskal.o : mainKruskal.c
 	$(CC) $(OPTIONS) -c $< -o $@
 
 #Construire la librairie statique
